@@ -1,0 +1,31 @@
+#!/bin/bash
+
+##Comandi per cambiare tema in xfce
+## xfconf-query -c xsettings -p /Net/ThemeName -s
+## xfconf-query -c xfwm4 -p /general/theme -s
+## xfconf-query -c xsettings -p /Net/IconThemeName -s
+
+theme_xfwm4="Coldsteel"
+theme_light="human-theme"
+theme_dark="ZorinGrey-Dark"
+theme_icon_light="buuf-nestort"
+theme_icon_dark="buuf-nestort"
+theme_active=$(xfconf-query -c xsettings -p /Net/ThemeName)
+
+if [ "$theme_active" == "$theme_dark" ]
+    then
+    xfconf-query -c xsettings -p /Net/ThemeName -s "$theme_light"
+    xfconf-query -c xfwm4 -p /general/theme -s "$theme_xfwm4"
+    xfconf-query -c xsettings -p /Net/IconThemeName -s "$theme_icon_light"
+    gsettings set org.xfce.mousepad.preferences.view color-scheme "solarized-light"
+    kitty +kitten themes --reload-in=all "Ale light xfce"
+    xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitorDP-2/workspace0/last-image -s /home/ale/Immagini/wallpapper/feather.png
+    elif [ "$theme_active" == "$theme_light" ]
+        then
+            xfconf-query -c xsettings -p /Net/ThemeName -s "$theme_dark"
+            xfconf-query -c xfwm4 -p /general/theme -s "$theme_xfwm4"
+            xfconf-query -c xsettings -p /Net/IconThemeName -s "$theme_icon_dark"
+            gsettings set org.xfce.mousepad.preferences.view color-scheme "monokai-extended"
+            kitty +kitten themes --reload-in=all "Ale dark xfce"
+            xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitorDP-2/workspace0/last-image -s /usr/share/backgrounds/xfce/xfce-leaves.svg
+fi
