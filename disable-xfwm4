@@ -1,0 +1,14 @@
+#!/bin/bash
+
+stato=$(xfconf-query -c xfwm4 -p /general/use_compositing)
+
+if [ "$stato" == "true" ]
+    then
+    xfconf-query -c xfwm4 -p /general/use_compositing -s false
+    xfconf-query -c xfce4-notifyd -p /do-not-disturb -T
+    xset -dpms
+    else
+    xfconf-query -c xfwm4 -p /general/use_compositing -s true
+    xfconf-query -c xfce4-notifyd -p /do-not-disturb -T
+    xset +dpms
+fi
